@@ -35,12 +35,7 @@ typedef struct _SamData {
 } SamData;
 
 // write just the shrunk file
-void process_shrunk(std::ifstream &in, std::string &name);
+void process_shrunk(std::ifstream &in, std::ofstream &shr_out);
 
-// write just the summary file
-void process_summary(std::ifstream &in, std::string &name);
-
-// write both files, shrunk and summary
-void process_both(std::ifstream &in, std::string &shrunk_name, std::string &summary_name);
 #endif
 
