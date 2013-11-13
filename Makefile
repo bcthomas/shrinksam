@@ -1,5 +1,5 @@
 PROGRAM_NAME = shrinksam
-VERSION = 0.1
+VERSION = 0.9.0
 CC = g++
 CFLAGS = -g -Wall -pedantic -DVERSION=$(VERSION) -std=gnu++11
 DEBUG = -g
