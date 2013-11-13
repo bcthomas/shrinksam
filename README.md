@@ -1,3 +1,5 @@
+shrinksam
+=========
 shrinksam - shrinks a SAM file while maintaining mate pair information
 
 The shrinksam program is a C++ program that will shrink a SAM file by
