@@ -11,7 +11,7 @@ where one or the other mate pair mapped but not the partner.
 This is extrememly useful in shrinking SAM output files, and saving
 storage space.
 
-shrinksam - shrinks a SAM file while maintaining mate pair information
+`shrinksam - shrinks a SAM file while maintaining mate pair information
 
 (Written by bct - 2013)
 
@@ -30,4 +30,4 @@ shrinksam < <stdin> > out
     -h, --help,         Display this help and exit
     -v, --verbose,      Print extra details during the run
     --version,          Output version information and exit
-
+`
