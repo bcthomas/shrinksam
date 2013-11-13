@@ -14,7 +14,7 @@
 using namespace std;
 
 bool Shrinksam::verbose_flag = false;
-char const *Shrinksam::version = "0.1";
+char const *Shrinksam::version = "0.9.0";
 char const *Shrinksam::progname;
 
 void show_usage(int status) {
