@@ -29,6 +29,7 @@ void show_usage(int status) {
 	cerr << "    -i, --input,        Optional - if not given, will read from stdin" << endl;
 	cerr << "    -k, --shrunk,       Name for shrunk SAM output file" << endl;
 	cerr << "    -d, --delete-input, Delete the input sam file (requires -i argument)" << endl;
+	cerr << "    -u, --unpaired,     SAM file was from an unpaired mapping" << endl;
 	cerr << "    -h, --help,         Display this help and exit" << endl;
 	cerr << "    -v, --verbose,      Print extra details during the run" << endl;
 	cerr << "    --version,          Output version information and exit" << endl;
@@ -47,8 +48,7 @@ int main(int argc, char *argv[])
 	bool delete_input = false;        // default to no delete
 	bool using_stdin = true;          // default to true
 	bool using_stdout = true;         // default to true
-
-	string line; // for file processing
+	bool unpaired = false;            // default to false, assumes paired
 
 	Shrinksam::progname = argv[0];
 
@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
 			{"version",      no_argument, 0, 'V'},
 			{"help",         no_argument, 0, 'h'},
 			{"delete-input", no_argument, 0, 'd'},
+			{"unpaired",     no_argument, 0, 'u'},
 			{"input",        required_argument, 0, 'i'},
 			{"shrunk",       required_argument, 0, 'k'},
 			{0, 0, 0, 0}
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
 		/* getopt_long stores the option index here. */
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "vVh?di:k:", long_options, &option_index);
+		c = getopt_long(argc, argv, "vVh?dui:k:", long_options, &option_index);
 
 		/* Detect the end of the options. */
 		if (c == -1)
@@ -110,6 +111,10 @@ int main(int argc, char *argv[])
 				delete_input = true;
 				break;
 
+			case 'u':
+				unpaired = true;
+				break;
+
 			default:
 				abort ();
 		}
@@ -130,12 +135,14 @@ int main(int argc, char *argv[])
 			cerr << "Input is from " << input_name << endl;
 
 		if (using_stdout)
-			cerr << "Shrunk SAM output will be in " << shrunk_name << endl;
-		else
 			cerr << "Shrunk SAM output will be to stdout" << endl;
+		else
+			cerr << "Shrunk SAM output will be in " << shrunk_name << endl;
 
 		if (delete_input)
 			cerr << "Input file will be deleted" << endl;
+		if (unpaired)
+			cerr << "Input is an unpaired SAM file" << endl;
 	}
 
 	ifstream input;
@@ -151,7 +158,11 @@ int main(int argc, char *argv[])
 		output.open(shrunk_name);
 
 	// process the data
-	process_shrunk(input,output);
+	if (unpaired) {
+		process_shrunk_unpaired(input,output);
+	} else {
+		process_shrunk(input,output);
+	}
 
 	// delete original file
 	if (delete_input) {

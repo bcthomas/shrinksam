@@ -31,7 +31,7 @@ build: $(PROGRAM_NAME).o process_stream.o split.o
 shrinksam.o: $(SDIR)/$(PROGRAM_NAME).cpp $(SDIR)/$(PROGRAM_NAME).h $(SDIR)/global.h
 	$(CC) $(CFLAGS) $(OPT) $(LDFLAGS) -c $(SDIR)/$*.cpp
 
-process_stream.o: $(SDIR)/process_stream.cpp $(SDIR)/process_stream.h $(SDIR)/split.h $(SDIR)/global.h
+process_stream.o: $(SDIR)/process_stream.cpp $(SDIR)/process_stream.h $(SDIR)/split.h $(SDIR)/global.h $(SDIR)/sam.h
 	$(CC) $(CFLAGS) $(OPT) $(LDFLAGS) -c $(SDIR)/$*.cpp
 
 split.o: $(SDIR)/split.cpp $(SDIR)/split.h
